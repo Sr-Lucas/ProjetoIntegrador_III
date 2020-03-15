@@ -1,7 +1,7 @@
 import random
 import math
 
-TAMANHO_INDIVIDUO = 10
+TAMANHO_INDIVIDUO = 4
 TAMANHO_POPULACAO = 2
 
 def gerarIndividuo(tamanhoIndividuo):
@@ -28,6 +28,26 @@ def funcaoFitness(individuo):
     print("Ind: " + str(individuoDec))
     return (3 * individuoDec) + math.pow(individuoDec, 2)
 
-pop = gerarPopulacao(5)
+def mutacao(populacao):
+    print(populacao)
 
-print("Fitness: " + str(funcaoFitness(gerarIndividuo(4))))
+    #Sorteia um indivíduo da população
+    posicaoIndividuo = random.randint(0, len(populacao)-1)
+    print("Posicao Indiviuo:" + str(posicaoIndividuo))
+    individuo = populacao[posicaoIndividuo]
+    print("Indivíduo: " + str(individuo))
+
+    #Sorteia um gene do indivíduo e inverte seu valor
+    posicaoGene = random.randint(0, len(individuo)-1)
+    gene = individuo[posicaoGene]
+    print("Gene sorteado: " + str(gene))
+
+    #Altera o gene (invertendo seu valor) e o coloca novamente no indiviuo
+    novoGene = '0' if gene == '1' else '1'
+    individuo[posicaoGene] = novoGene
+    print("Novo Indivíduo: " + str(individuo))
+
+    populacao[posicaoIndividuo] = individuo
+
+pop = gerarPopulacao(5)
+mutacao(pop)
