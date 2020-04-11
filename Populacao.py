@@ -35,8 +35,16 @@ class Populacao(object):
         self.populacao[posicaoIndividuo].fazerMutacao()
 
     def selecao(self):
-        self.individuoMaiorFitness = ['1']
-        self.segIndividuoMaiorFitness = ['0']
+        melhorFitness = self.populacao[0]
+        segundoMelhorFitness = self.populacao[0]
+        for individuo in self.populacao:
+            fitness = individuo.calcularFitness()
+            if (fitness > melhorFitness.calcularFitness()):
+                segundoMelhorFitness = melhorFitness
+                melhorFitness = individuo
+
+            elif (fitness > segundoMelhorFitness.calcularFitness()):
+                segundoMelhorFitness = individuo
     
     def reproducao(self):
         indvHalf = len(self.individuoMaiorFitness)/2
