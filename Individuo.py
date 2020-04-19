@@ -27,6 +27,6 @@ class Individuo(object):
         #Altera o gene (invertendo seu valor) e o coloca novamente no indiviuo
         novoGene = '0' if gene == '1' else '1'
         self.materialGenetico[posicaoGene] = novoGene
-        print("Novo Indivíduo: " + str(self.materialGenetico))
+        print("Indivíduo mutado: " + str(self.materialGenetico))
 
     
