@@ -9,8 +9,6 @@ class Populacao(object):
         self.contadorGeracao = 1
         self.geracoes = [1]
         self.fitnessMedioDasGeracoes = []
-        self.individuoMaiorFitness = []
-        self.segIndividuoMaiorFitness = []
         self.tamanhoPopulacao = tamanhoPopulacao
         self.tamanhoIndividuo = tamanhoIndividuo
 
@@ -34,6 +32,24 @@ class Populacao(object):
         print("Posicao Indiviuo:" + str(posicaoIndividuo))
         self.populacao[posicaoIndividuo].fazerMutacao()
 
+    def reproducao(self, taxaReproducao):
+        reproduzir = []
+        inicio = self.tamanhoPopulacao - 1
+        fim = ((self.tamanhoPopulacao) - 1) - int(self.tamanhoPopulacao * (taxaReproducao/100))
+        for i in range(inicio, fim, -2):
+            novoIndividuo = Individuo(self.tamanhoIndividuo)
+            novoIndividuo.materialGenetico = self.populacao[i].reproducao(self.populacao[i-1])
+            self.populacao.append(novoIndividuo)
+            self.tamanhoPopulacao = self.tamanhoPopulacao + 1
+
+            #Incrementa o contador de geracoes
+            self.contadorGeracao += 1
+            #Coloca mais uma geracao no array de geracoes e seu respectivo fitness médio no array 'fitness'
+            self.geracoes.append(self.contadorGeracao)
+            self.fitnessMedioDasGeracoes.append(self.calcularFitnessMedio())
+
+        self.exibirMaterialGenetico()
+
     def selecao(self):
         melhorFitness = self.populacao[0]
         segundoMelhorFitness = self.populacao[0]
@@ -45,18 +61,6 @@ class Populacao(object):
 
             elif (fitness > segundoMelhorFitness.calcularFitness()):
                 segundoMelhorFitness = individuo
-    
-    def reproducao(self):
-        indvHalf = len(self.individuoMaiorFitness)/2
-        filho = []
-
-        for i in range(len(self.individuoMaiorFitness)):
-            if i < indvHalf:
-                filho.append(self.individuoMaiorFitness[i])
-            else:
-                filho.append(self.segIndividuoMaiorFitness[i])
-
-        return filho
 
     def adicionarDescendente(self, descendente):
         menorFitness = sys.float_info.max
@@ -67,10 +71,6 @@ class Populacao(object):
     
         self.populacao[indiceMenorFitness] = descendente
 
-        #Incrementa o contador de geracoes
-        self.contadorGeracao += 1
-        #Coloca mais uma geracao no array de geracoes e seu respectivo fitness médio no array 'fitness'
-        self.geracoes.append(self.contadorGeracao)
-        self.fitnessMedioDasGeracoes.append(self.calcularFitnessMedio())
-
-        
+    def exibirMaterialGenetico(self):
+        for i in range(self.tamanhoPopulacao):
+            print(self.populacao[i].materialGenetico)
