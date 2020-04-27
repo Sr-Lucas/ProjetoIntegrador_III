@@ -13,9 +13,12 @@ populacao = Populacao(TAMANHO_POPULACAO, TAMANHO_INDIVIDUO)
 
 populacao.inicializar()
 
-
 populacao.calcularFitnessMedio()
 populacao.selecao()
+populacao.reproducao(50)
+populacao.reproducao(50)
+populacao.reproducao(50)
+populacao.reproducao(50)
 populacao.reproducao(50)
 populacao.mutacao()
 grafico.plotar(populacao)

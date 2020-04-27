@@ -5,11 +5,12 @@ import math
 class Individuo(object):
 
     def __init__(self, tamanhoIndividuo):
-        self.fitness = 0
+        self.fitness = None        
         self.tamanhoIndividuo = tamanhoIndividuo
         self.materialGenetico = []
         for i in range(tamanhoIndividuo):
             self.materialGenetico.append(str(random.randint(0, 1)))
+        self.calcularFitness()
 
     def reproducao(self, indiviuo2):
         filho = []
@@ -22,10 +23,12 @@ class Individuo(object):
         return filho
 
     def calcularFitness(self):
-        materialGeneticoStr = "".join(self.materialGenetico)
-        materialGeneticoDecimal = int(materialGeneticoStr, 2)
-        self.fitness = (3 * materialGeneticoDecimal) + \
-            math.pow(materialGeneticoDecimal, 2)
+        if(self.fitness == None):
+            materialGeneticoStr = "".join(self.materialGenetico)
+            materialGeneticoDecimal = int(materialGeneticoStr, 2)
+            self.fitness = (3 * materialGeneticoDecimal) + \
+                math.pow(materialGeneticoDecimal, 2)
+
         return self.fitness
 
     def fazerMutacao(self):
