@@ -10,6 +10,7 @@ TAMANHO_POPULACAO = 100
 populacao = Populacao(TAMANHO_POPULACAO, TAMANHO_INDIVIDUO)
 populacao.inicializar()
 
+
 #funcao principal
 for i in range(8):
   populacao.calcularFitnessMedio()
