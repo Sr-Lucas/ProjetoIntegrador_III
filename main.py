@@ -8,14 +8,12 @@ TAMANHO_POPULACAO = 100
 
 #inicializacao da populacao
 populacao = Populacao(TAMANHO_POPULACAO, TAMANHO_INDIVIDUO)
-
-
-
 populacao.inicializar()
 
-
-populacao.calcularFitnessMedio()
-populacao.selecao()
-populacao.reproducao(50)
-populacao.mutacao()
-grafico.plotar(populacao)
+#funcao principal
+for i in range(8):
+  populacao.calcularFitnessMedio()
+  populacao.selecao()
+  populacao.reproducao(70)
+  populacao.mutacao()
+  grafico.plotar(populacao)
